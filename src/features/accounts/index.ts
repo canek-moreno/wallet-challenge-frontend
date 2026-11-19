@@ -1,1 +1,13 @@
 export { useBalanceVisibility } from "./presentation/hooks/useBalanceVisibility";
+export { ProductList } from "./presentation/components/ProductList";
+export { ProductDetail } from "./presentation/components/ProductDetail";
+export { CardCarousel } from "./presentation/components/CardCarousel";
+export { NetWorthWidget } from "./presentation/components/NetWorthWidget";
+export { ProductQuickActions } from "./presentation/components/ProductQuickActions";
+export { useGetAccountsQuery } from "./presentation/api/accountsApi";
+export { makeListAccounts } from "./application/ListAccounts";
+export { makeSetAccountFrozen } from "./application/ToggleCardFreeze";
+export { createHttpAccountRepository } from "./infrastructure/http/HttpAccountRepository";
+export type { Account, AccountsSnapshot, AccountType } from "./domain/entities/Account";
+export type { AccountError } from "./domain/errors/AccountError";
+export type { AccountRepository } from "./domain/ports/AccountRepository";

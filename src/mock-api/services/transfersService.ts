@@ -22,7 +22,7 @@ export async function sendTransfer(
 
   const source = memoryStore.accounts.find((account) => account.id === request.sourceAccountId);
   if (!source || source.currency !== request.currency) {
-    return { status: 404, body: { code: "UNKNOWN", reference: "ACCOUNT_NOT_FOUND" } };
+    return { status: 404, body: { code: "NOT_FOUND" } };
   }
   if (scenario === "insufficient" || source.balanceCents < request.amountCents) {
     return {
@@ -32,7 +32,21 @@ export async function sendTransfer(
   }
 
   source.balanceCents -= request.amountCents;
-  const response: StoredResponse = { status: 200, body: { id: `TRX-${crypto.randomUUID()}` } };
+  const destinationContact = memoryStore.contacts.find((contact) => contact.id === request.destinationId);
+  if (destinationContact) destinationContact.lastTransferAt = new Date().toISOString();
+  const transactionId = `TRX-${crypto.randomUUID()}`;
+  memoryStore.transactions.unshift({
+    id: transactionId,
+    accountId: source.id,
+    name: "Transferencia enviada",
+    merchantLogoUrl: null,
+    category: "Transferencias",
+    direction: "expense",
+    amountCents: request.amountCents,
+    currency: request.currency,
+    occurredAt: new Date().toISOString(),
+  });
+  const response: StoredResponse = { status: 200, body: { id: transactionId } };
   memoryStore.idempotency.set(idempotencyKey, response);
   return response;
 }

@@ -2,10 +2,10 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "tests/e2e",
-  use: { baseURL: "http://localhost:3000" },
+  use: { baseURL: "http://localhost:3000", channel: "chrome" },
   projects: [
-    { name: "mobile", use: { ...devices["Desktop Chrome"], viewport: { width: 375, height: 812 } } },
-    { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
+    { name: "mobile", use: { ...devices["Desktop Chrome"], channel: "chrome", viewport: { width: 375, height: 812 } } },
+    { name: "desktop", use: { ...devices["Desktop Chrome"], channel: "chrome", viewport: { width: 1440, height: 900 } } },
   ],
   webServer: {
     command: "npm run dev",
