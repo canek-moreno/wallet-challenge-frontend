@@ -17,4 +17,7 @@ export const seedAccounts: SeedAccount[] = [
   { id: "acc-vault-1", type: "vault", last4: "0007", network: "visa", balanceCents: 500000, currency: "MXN", frozen: false },
 ];
 
-export const seedUser = { name: "Ana", email: "demo@wallet.test", password: "demo1234" };
+export const seedUsers = [
+  { name: "Mariana López", email: "mariana.lopez@email.com", password: "demo1234" },
+  { name: "Diego Ramírez", email: "diego.ramirez@email.com", password: "demo5678" },
+];

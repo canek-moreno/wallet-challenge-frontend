@@ -10,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Wallet",
-  description: "Web wallet",
+  title: "luma.",
+  description: "luma. Tu dinero, tus planes y cada nuevo comienzo.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

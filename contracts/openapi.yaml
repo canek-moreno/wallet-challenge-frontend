@@ -142,6 +142,7 @@ paths:
       tags: [accounts]
       operationId: setAccountFrozen
       summary: Apagar o encender un producto (congelar tarjeta)
+      description: Congela únicamente el uso físico de la tarjeta. No afecta transferencias ni pagos digitales.
       parameters:
         - $ref: "#/components/parameters/AccountId"
       requestBody:
@@ -242,7 +243,7 @@ paths:
         - name: favorites
           in: query
           required: false
-          description: Si es true, devuelve favoritos y recientes para el carrusel.
+          description: Si es true, devuelve solo los contactos favoritos para el carrusel.
           schema:
             type: boolean
             default: false
@@ -536,6 +537,7 @@ components:
           $ref: "#/components/schemas/Currency"
         frozen:
           type: boolean
+          description: Bloquea solo el uso físico de la tarjeta. Las transferencias y los pagos digitales siguen disponibles.
 
     AccountsResponse:
       type: object
