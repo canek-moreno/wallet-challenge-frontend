@@ -63,3 +63,14 @@ Required Screens & Components:
      * Timeout / Tiempo de espera agotado (Clock icon, instruction to check movements before retrying).
      * Error genérico (Illustration/icon, transaction reference code, support CTA).
 ```
+
+## 2. Herramientas de IA por etapa
+
+| Etapa | Herramienta | Uso |
+| --- | --- | --- |
+| Diseño inicial de la funcionalidad | Gemini (Notebook) | Definición de la funcionalidad y refinamiento del prompt para Figma |
+| UX de escritorio y móvil | Figma Make | Creación de las pantallas de escritorio (1440px) y móvil (375px) |
+| Modelado de la arquitectura | Devin + Claude Haiku 5.5 | Decisiones de arquitectura, estructura de carpetas y documentación en `docs/ARCHITECTURE.md` |
+| Generación del boilerplate | Devin + Claude Haiku 5.5 | Scaffold de Next.js, store, features, mock API y pruebas |
+| Conexión a Figma vía MCP | Devin + Claude Haiku 5.5 | Consulta de nodos, descarga de iconos y tokens de diseño desde el archivo de Figma |
+| Documentación | Devin + Claude Haiku 5.5 | `docs/ARCHITECTURE.md`, `contracts/openapi.yaml` y este archivo |

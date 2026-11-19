@@ -350,7 +350,7 @@ Estado de los endpoints: **implementado** (en el mock y en `contracts/openapi.ya
 | Campana de notificaciones | Acción en el header | `notifications` | `GET /notifications/summary` | planeado |
 | Registro de usuario ("Crear una cuenta") | Sin ruta | Sin feature | Sin endpoint | fuera de alcance |
 
-**Pendientes del mapeo:**
+#### Pendientes del mapeo
 
 - **"Mis productos" en la barra lateral:** resuelto. Apunta a `/products`, que muestra la lista completa de productos y enlaza a `/products/[id]`. El carrusel del inicio se queda en `/`.
 - **"Nuevo contacto" en escritorio** no tiene frame propio en Figma. Se usa el frame móvil adaptado al ancho de escritorio.
@@ -451,6 +451,7 @@ Estado de los endpoints: **implementado** (en el mock y en `contracts/openapi.ya
 | Flujos completos | E2E | Login, transferir hasta el comprobante, cada error de la tabla de escenarios |
 
 **Criterios de aceptación:**
+
 - Toda regla de `domain/rules` tiene pruebas para el caso válido y para cada caso inválido.
 - Cada `TransferError` tiene una prueba que verifica su vista en `presentation/components/status/`.
 - Los componentes críticos se prueban por comportamiento visible (roles, textos, estados), no por detalles de implementación.

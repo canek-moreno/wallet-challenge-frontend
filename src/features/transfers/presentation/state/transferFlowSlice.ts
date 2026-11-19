@@ -38,8 +38,10 @@ const transferFlowSlice = createSlice({
     },
     setDestination: (state, action: PayloadAction<Destination>) => {
       state.destination = action.payload;
+      state.idempotencyKey = null;
     },
     setAmount: (state, action: PayloadAction<number>) => {
+      if (action.payload !== state.amountCents) state.idempotencyKey = null;
       state.amountCents = action.payload;
     },
     setConcept: (state, action: PayloadAction<string>) => {

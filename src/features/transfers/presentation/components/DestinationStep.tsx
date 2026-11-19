@@ -54,6 +54,7 @@ export function DestinationStep() {
   const [q, setQ] = useState("");
   const recent = useListContactsQuery({ recent: true });
   const all = useListContactsQuery({ q: q.trim() || undefined });
+  const recentIds = new Set(recent.data?.map((contact) => contact.id) ?? []);
 
   const sourceId = flow.sourceAccountId ?? accounts.data?.accounts.find((account) => account.type === "debit")?.id ?? null;
 
@@ -132,9 +133,11 @@ export function DestinationStep() {
             <h2 className="text-[10px] font-semibold tracking-wide text-muted">TODOS</h2>
             {all.data && all.data.length === 0 ? <p className="text-sm text-muted">No encontramos contactos.</p> : null}
             <ul className="flex flex-col gap-3">
-              {all.data?.map((contact) => (
-                <ContactRow key={contact.id} contact={contact} onSelect={(c) => choose(contactDestination(c))} />
-              ))}
+              {all.data
+                ?.filter((contact) => q.trim() || !recentIds.has(contact.id))
+                .map((contact) => (
+                  <ContactRow key={contact.id} contact={contact} onSelect={(c) => choose(contactDestination(c))} />
+                ))}
             </ul>
           </section>
 
