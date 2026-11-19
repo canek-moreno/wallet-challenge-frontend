@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { formatCurrency } from "@/shared/lib/formatCurrency";
+import { TransactionList } from "@/features/transactions";
 import { useGetAccountsQuery } from "../api/accountsApi";
-import { accountTypeLabel } from "./accountLabels";
+import { useBalanceVisibility } from "../hooks/useBalanceVisibility";
+import { CardVisual } from "./CardVisual";
+import { ProductQuickActions } from "./ProductQuickActions";
 
 export function ProductDetail({ accountId }: { accountId: string }) {
   const { data, error, isLoading } = useGetAccountsQuery();
+  const { hidden } = useBalanceVisibility();
 
   if (isLoading) return <p className="text-sm">Cargando producto…</p>;
   if (error || !data) return <p className="text-sm">No pudimos cargar el producto. Intenta de nuevo.</p>;
@@ -15,15 +18,16 @@ export function ProductDetail({ accountId }: { accountId: string }) {
   if (!account) return <p className="text-sm">No encontramos este producto.</p>;
 
   return (
-    <section className="flex flex-col gap-3 rounded-card bg-white p-4 shadow-sm">
-      <h1 className="text-xl font-semibold">{accountTypeLabel[account.type]}</h1>
-      <p className="text-sm">•••• {account.last4}</p>
-      {account.expiration && <p className="text-sm">Vence {account.expiration}</p>}
-      <p className="text-2xl font-semibold">{formatCurrency(account.balanceCents, account.currency)}</p>
-      {account.frozen && <p className="text-sm">Uso físico bloqueado. Digital disponible.</p>}
-      <Link href="/products" className="text-sm font-medium underline">
+    <div className="flex flex-col gap-6">
+      <Link href="/products" className="text-sm font-medium text-primary">
         Volver a mis productos
       </Link>
-    </section>
+      <CardVisual account={account} selected hideBalance={hidden} />
+      <ProductQuickActions account={account} />
+      <section className="flex flex-col gap-4">
+        <h2 className="text-lg font-semibold text-ink">Movimientos</h2>
+        <TransactionList accountId={account.id} />
+      </section>
+    </div>
   );
 }

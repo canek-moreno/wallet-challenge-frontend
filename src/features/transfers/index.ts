@@ -6,3 +6,8 @@ export { validateTransfer, type TransferValidationError } from "./domain/rules/v
 export { makeSendMoney, type SendMoneyError } from "./application/SendMoney";
 export { createHttpTransferRepository } from "./infrastructure/http/HttpTransferRepository";
 export { transferRequestDto, transferReceiptDto, transferErrorDto, type TransferRequestDto } from "./infrastructure/dto/transferDto";
+export { DestinationStep } from "./presentation/components/DestinationStep";
+export { AmountStep } from "./presentation/components/AmountStep";
+export { ReviewStep } from "./presentation/components/ReviewStep";
+export { SuccessStep } from "./presentation/components/SuccessStep";
+export { transferFlowReducer, transferFlowActions, selectTransferFlow } from "./presentation/state/transferFlowSlice";

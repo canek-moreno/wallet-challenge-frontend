@@ -1,8 +1,6 @@
-import { z } from "zod";
+import { loginDto } from "@/mock-api/contracts";
 import { json, mockApiGuard } from "@/mock-api/http";
 import { login, SESSION_COOKIE } from "@/mock-api/services/authService";
-
-const loginDto = z.object({ email: z.email(), password: z.string().min(1) });
 
 export async function POST(request: Request) {
   const disabled = mockApiGuard();

@@ -488,6 +488,16 @@ Estado de los endpoints: **implementado** (en el mock y en `contracts/openapi.ya
 - Si el dominio crece sin reglas complejas, esta arquitectura puede simplificarse a FSD con la misma stack de estado.
 - Falta definir el contrato de la API del backend para completar los puertos.
 - Pendiente validar con el equipo el uso de Server Components para llamadas directas a casos de uso.
+- Decisiones de implementación (fases 2 a 10):
+  - El flujo de transferencia vive en Redux (`transferFlow`). No se persiste: al recargar la página se regresa a `/transfer`.
+  - La cuenta origen es la de débito por defecto. Figma no define selector de origen.
+  - Los errores de transferencia se muestran dentro de `/transfer/review`. "Deslizar para confirmar" se implementó como botón.
+  - No existe `/transfer/contact`. Los contactos se seleccionan en `/transfer` y el alta se hace en `/contacts/new`.
+  - La validación de CLABE verifica formato (18 dígitos), no el dígito verificador.
+  - Los iconos de las vistas de estado son SVG propios. No se usaron los assets de Figma.
+  - La campana de notificaciones está deshabilitada hasta tener endpoint.
+  - Las pruebas E2E usan Chrome instalado en el sistema (`channel: "chrome"`), porque la descarga de Chromium de Playwright falló por red.
+  - El mock comparte cuentas, movimientos y contactos entre los dos usuarios de demostración.
 - Resuelto: los tokens de color, radio y tipografía se extrajeron de Figma y viven en `src/presentation/theme/tokens.ts`, espejados en `app/globals.css` (`@theme`). Una prueba verifica que coincidan. Los colores de texto de error (`#b42318`) y de advertencia (`#b54708`) son provisionales: no aparecen como valores en el código de Figma y hay que confirmarlos.
 - Resuelto: con Next.js 16.4.6 la protección de rutas usa `proxy.ts` (`middleware.ts` está deprecado).
 - Resuelto: el seed incluye dos usuarios de demostración (Mariana López y Diego Ramírez). Los productos, movimientos y contactos son compartidos por ambos en el mock.

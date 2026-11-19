@@ -1,8 +1,15 @@
-import { err, ok } from "@/shared/domain/Result";
-import { httpGet } from "@/shared/infrastructure/http/httpClient";
-import type { AccountRepository } from "../../domain/ports/AccountRepository";
+import { err, ok, type Result } from "@/shared/domain/Result";
+import { httpGet, httpPatch } from "@/shared/infrastructure/http/httpClient";
+import type { Account } from "../../domain/entities/Account";
 import type { AccountError } from "../../domain/errors/AccountError";
-import { accountsResponseDto } from "../dto/accountDto";
+import type { AccountRepository } from "../../domain/ports/AccountRepository";
+import { accountDto, accountsResponseDto } from "../dto/accountDto";
+
+function failure(status: number): Result<never, AccountError> {
+  if (status === 401) return err({ kind: "Unauthorized" });
+  if (status === 404) return err({ kind: "NotFound" });
+  return err({ kind: "Network" });
+}
 
 export function createHttpAccountRepository(): AccountRepository {
   return {
@@ -11,18 +18,30 @@ export function createHttpAccountRepository(): AccountRepository {
       try {
         response = await httpGet("/accounts");
       } catch {
-        return err<AccountError>({ kind: "Network" });
+        return err({ kind: "Network" });
       }
-      if (response.status === 401) return err<AccountError>({ kind: "Unauthorized" });
-      if (!response.ok) return err<AccountError>({ kind: "Network" });
+      if (!response.ok) return failure(response.status);
 
       const parsed = accountsResponseDto.safeParse(await response.json().catch(() => null));
-      if (!parsed.success) return err<AccountError>({ kind: "Unknown" });
+      if (!parsed.success) return err({ kind: "Unknown" });
       return ok({
         netWorthCents: parsed.data.netWorth.amountCents,
         currency: parsed.data.netWorth.currency,
         accounts: parsed.data.accounts,
       });
+    },
+
+    async setFrozen(accountId, frozen) {
+      let response: Response;
+      try {
+        response = await httpPatch(`/accounts/${encodeURIComponent(accountId)}/freeze`, { frozen });
+      } catch {
+        return err({ kind: "Network" });
+      }
+      if (!response.ok) return failure(response.status);
+
+      const parsed = accountDto.safeParse(await response.json().catch(() => null));
+      return parsed.success ? ok(parsed.data as Account) : err({ kind: "Unknown" });
     },
   };
 }

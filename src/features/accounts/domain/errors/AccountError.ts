@@ -1,1 +1,1 @@
-export type AccountError = { kind: "Network" } | { kind: "Unauthorized" } | { kind: "Unknown" };
+export type AccountError = { kind: "Network" } | { kind: "Unauthorized" } | { kind: "NotFound" } | { kind: "Unknown" };

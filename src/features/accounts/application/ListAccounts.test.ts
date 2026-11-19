@@ -7,7 +7,7 @@ describe("ListAccounts", () => {
   it("devuelve el resultado del repositorio sin modificarlo", async () => {
     const snapshot = { netWorthCents: 100, currency: "MXN" as const, accounts: [] };
     const list = vi.fn().mockResolvedValue(ok(snapshot));
-    const listAccounts = makeListAccounts({ list } as AccountRepository);
+    const listAccounts = makeListAccounts({ list, setFrozen: vi.fn() } as AccountRepository);
 
     await expect(listAccounts()).resolves.toEqual({ ok: true, value: snapshot });
     expect(list).toHaveBeenCalledOnce();
