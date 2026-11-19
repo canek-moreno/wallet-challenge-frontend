@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useGetAccountsQuery } from "@/features/accounts";
 import { useListContactsQuery } from "@/features/contacts";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -20,7 +21,7 @@ export function DestinationStep() {
   const flow = useAppSelector(selectTransferFlow);
   const accounts = useGetAccountsQuery();
   const contacts = useListContactsQuery();
-  const kind = flow.destination?.kind === "contact" ? "contacts" : "own";
+  const [kind, setKind] = useState<"own" | "contacts">(flow.destination?.kind === "contact" ? "contacts" : "own");
 
   const sourceId = flow.sourceAccountId ?? accounts.data?.accounts.find((account) => account.type === "debit")?.id ?? null;
 
@@ -35,7 +36,7 @@ export function DestinationStep() {
       <SegmentedControl
         options={kindOptions}
         value={kind}
-        onChange={() => {}}
+        onChange={setKind}
         label="Tipo de destino"
       />
       {kind === "own" ? (
