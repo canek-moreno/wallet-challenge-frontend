@@ -13,7 +13,7 @@ test("permite elegir un contacto como destino", async ({ page }) => {
   await page.goto("/transfer");
   await page.getByRole("radio", { name: "A contactos" }).click();
   await expect(page.getByRole("radio", { name: "A contactos" })).toHaveAttribute("aria-checked", "true");
-  await page.getByRole("button", { name: /Luis Hernández/ }).click();
+  await page.getByRole("button", { name: /Luis Hernández/ }).first().click();
   await expect(page).toHaveURL("/transfer/amount");
   await expect(page.getByText("Para Luis Hernández")).toBeVisible();
 });

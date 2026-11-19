@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { BANKS } from "../../domain/banks";
 import { isValidAccountNumber } from "../../domain/rules/validateContact";
 
 export const contactFormSchema = z.object({
   fullName: z.string().trim().min(2, "Ingresa el nombre completo.").max(120),
-  bank: z.string().trim().min(2, "Ingresa el banco."),
+  bank: z.enum(BANKS, { error: "Selecciona un banco." }),
   accountNumber: z
     .string()
     .trim()

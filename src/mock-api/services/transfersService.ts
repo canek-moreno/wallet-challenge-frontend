@@ -32,6 +32,8 @@ export async function sendTransfer(
   }
 
   source.balanceCents -= request.amountCents;
+  const destinationContact = memoryStore.contacts.find((contact) => contact.id === request.destinationId);
+  if (destinationContact) destinationContact.lastTransferAt = new Date().toISOString();
   const transactionId = `TRX-${crypto.randomUUID()}`;
   memoryStore.transactions.unshift({
     id: transactionId,

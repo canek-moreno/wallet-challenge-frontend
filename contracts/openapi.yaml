@@ -261,6 +261,13 @@ paths:
           schema:
             type: boolean
             default: false
+        - name: recent
+          in: query
+          required: false
+          description: Si es true, devuelve hasta 5 contactos con transferencias recientes, del más reciente al más antiguo.
+          schema:
+            type: boolean
+            default: false
       responses:
         "200":
           description: Contactos ordenados alfabéticamente por nombre.
@@ -657,7 +664,7 @@ components:
           maxLength: 120
         bank:
           type: string
-          minLength: 2
+          enum: [BBVA, Santander, Banorte, Citibanamex, HSBC, Scotiabank, Inbursa, Nu, SPIN]
         accountNumber:
           type: string
           pattern: "^([0-9]{18}|[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30})$"

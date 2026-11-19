@@ -10,4 +10,5 @@ export { DestinationStep } from "./presentation/components/DestinationStep";
 export { AmountStep } from "./presentation/components/AmountStep";
 export { ReviewStep } from "./presentation/components/ReviewStep";
 export { SuccessStep } from "./presentation/components/SuccessStep";
+export { TransferStepper } from "./presentation/components/TransferStepper";
 export { transferFlowReducer, transferFlowActions, selectTransferFlow } from "./presentation/state/transferFlowSlice";

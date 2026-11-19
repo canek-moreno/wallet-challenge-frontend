@@ -17,6 +17,7 @@ export function createHttpContactRepository(): ContactRepository {
       const params = new URLSearchParams();
       if (query.q) params.set("q", query.q);
       if (query.favorites) params.set("favorites", "true");
+      if (query.recent) params.set("recent", "true");
       const search = params.toString();
 
       let response: Response;
