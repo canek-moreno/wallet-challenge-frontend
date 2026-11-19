@@ -488,6 +488,6 @@ Estado de los endpoints: **implementado** (en el mock y en `contracts/openapi.ya
 - Si el dominio crece sin reglas complejas, esta arquitectura puede simplificarse a FSD con la misma stack de estado.
 - Falta definir el contrato de la API del backend para completar los puertos.
 - Pendiente validar con el equipo el uso de Server Components para llamadas directas a casos de uso.
-- Pendiente definir la fuente de los tokens de diseño (manual o exportados desde Figma).
+- Resuelto: los tokens de color, radio y tipografía se extrajeron de Figma y viven en `src/presentation/theme/tokens.ts`, espejados en `app/globals.css` (`@theme`). Una prueba verifica que coincidan. Los colores de texto de error (`#b42318`) y de advertencia (`#b54708`) son provisionales: no aparecen como valores en el código de Figma y hay que confirmarlos.
 - Resuelto: con Next.js 16.4.6 la protección de rutas usa `proxy.ts` (`middleware.ts` está deprecado).
 - Resuelto: el seed incluye dos usuarios de demostración (Mariana López y Diego Ramírez). Los productos, movimientos y contactos son compartidos por ambos en el mock.
