@@ -27,7 +27,7 @@ export function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { identifier: "", password: "" },
   });
 
   const onSubmit = async (values: LoginFormValues) => {
@@ -44,13 +44,20 @@ export function LoginForm() {
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <Input
-        id="email"
-        label="Correo o documento"
-        autoComplete="username"
-        error={errors.email?.message}
-        {...register("email")}
-      />
+      <div className="flex flex-col gap-2">
+        <Input
+          id="identifier"
+          label="Correo electrónico o teléfono"
+          autoComplete="username"
+          inputMode="email"
+          placeholder="Correo o número de teléfono"
+          error={errors.identifier?.message}
+          {...register("identifier")}
+        />
+        {errors.identifier ? null : (
+          <p className="text-xs text-muted">Si usas tu teléfono, incluye el código de país.</p>
+        )}
+      </div>
       <PasswordField
         id="password"
         label="Contraseña"

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/shared/lib/cn";
+import { Icon } from "../ui/Icon";
 import { isActivePath, navItems } from "./navItems";
 
 export function BottomNav() {
@@ -20,8 +21,12 @@ export function BottomNav() {
             key={item.href}
             href={item.href}
             aria-current={active ? "page" : undefined}
-            className={cn("px-1 py-3 text-center text-[11px] font-medium", active ? "text-primary" : "text-muted")}
+            className={cn(
+              "flex flex-col items-center gap-1 px-1 py-2.5 text-center text-[11px] font-medium",
+              active ? "text-primary" : "text-muted",
+            )}
           >
+            <Icon name={item.icon} />
             {item.label}
           </Link>
         );

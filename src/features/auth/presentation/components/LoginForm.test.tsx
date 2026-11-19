@@ -24,7 +24,7 @@ describe("LoginForm", () => {
 
     await userEvent.click(screen.getByRole("button", { name: "Iniciar sesión" }));
 
-    expect(await screen.findByText("Ingresa tu correo o documento.")).toBeInTheDocument();
+    expect(await screen.findByText("Ingresa tu correo o teléfono.")).toBeInTheDocument();
     expect(screen.getByText("Ingresa tu contraseña.")).toBeInTheDocument();
     expect(login).not.toHaveBeenCalled();
   });
@@ -33,7 +33,7 @@ describe("LoginForm", () => {
     vi.spyOn(container, "login").mockResolvedValue({ ok: false, error: { kind: "InvalidCredentials" } });
     renderWithProviders(<LoginForm />);
 
-    await userEvent.type(screen.getByLabelText("Correo o documento"), "mariana.lopez@email.com");
+    await userEvent.type(screen.getByLabelText("Correo electrónico o teléfono"), "mariana.lopez@email.com");
     await userEvent.type(screen.getByLabelText("Contraseña"), "incorrecta");
     await userEvent.click(screen.getByRole("button", { name: "Iniciar sesión" }));
 

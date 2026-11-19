@@ -6,6 +6,7 @@ vi.mock("next/navigation", () => ({ usePathname: () => "/products/acc-debit-1" }
 
 vi.mock("@/features/auth", () => ({
   useGetSessionQuery: () => ({ data: { name: "Mariana López" } }),
+  LogoutButton: () => <button type="button">Cerrar sesión</button>,
 }));
 
 describe("SideNav", () => {
@@ -18,5 +19,10 @@ describe("SideNav", () => {
   it("muestra el nombre del usuario de la sesión", () => {
     render(<SideNav />);
     expect(screen.getByText("Mariana López")).toBeInTheDocument();
+  });
+
+  it("ofrece cerrar sesión", () => {
+    render(<SideNav />);
+    expect(screen.getByRole("button", { name: "Cerrar sesión" })).toBeInTheDocument();
   });
 });

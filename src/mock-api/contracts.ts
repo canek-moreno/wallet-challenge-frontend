@@ -1,6 +1,10 @@
 import { z } from "zod";
+import { identifierKind } from "@/features/auth/domain/rules/identifier";
 
-export const loginDto = z.object({ email: z.email(), password: z.string().min(1) });
+export const loginDto = z.object({
+  identifier: z.string().refine((value) => identifierKind(value) !== null),
+  password: z.string().min(1),
+});
 
 export const freezeDto = z.object({ frozen: z.boolean() });
 

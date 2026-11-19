@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useGetSessionQuery } from "@/features/auth";
+import { LogoutButton, useGetSessionQuery } from "@/features/auth";
 import { cn } from "@/shared/lib/cn";
 import { Avatar } from "../ui/Avatar";
+import { Icon } from "../ui/Icon";
 import { isActivePath, navItems } from "./navItems";
 
 export function SideNav() {
@@ -27,21 +28,25 @@ export function SideNav() {
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "rounded-nav px-3 py-3.5 text-[13px]",
+                "flex items-center gap-3 rounded-nav px-3 py-3.5 text-[13px]",
                 active ? "bg-brand-active font-semibold text-white" : "text-brand-muted",
               )}
             >
+              <Icon name={item.icon} />
               {item.label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="mt-auto flex items-center gap-2.5">
-        {session && <Avatar name={session.name} />}
-        <div className="flex flex-col">
-          <p className="text-xs font-medium text-white">{session?.name ?? ""}</p>
-          <p className="text-[10px] text-brand-muted">Cuenta personal</p>
+      <div className="mt-auto flex flex-col gap-4">
+        <LogoutButton className="w-full text-brand-muted hover:bg-brand-active hover:text-white" />
+        <div className="flex items-center gap-2.5">
+          {session && <Avatar name={session.name} />}
+          <div className="flex flex-col">
+            <p className="text-xs font-medium text-white">{session?.name ?? ""}</p>
+            <p className="text-[10px] text-brand-muted">Cuenta personal</p>
+          </div>
         </div>
       </div>
     </aside>

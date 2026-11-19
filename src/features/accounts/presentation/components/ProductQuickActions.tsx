@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { Toggle } from "@/presentation/components/ui";
+import { Icon, type IconName, Toggle } from "@/presentation/components/ui";
 import type { Account } from "../../domain/entities/Account";
 import { useSetAccountFrozenMutation } from "../api/accountsApi";
 
-const actions = [
-  { href: "/statements", label: "Estado de cuenta" },
-  { href: "/transfer", label: "Transferir" },
-  { href: "/receive", label: "Recibir" },
-  { href: "/bill-payments", label: "Pagar servicios" },
-] as const;
+const actions: { href: string; label: string; icon: IconName }[] = [
+  { href: "/statements", label: "Estado de cuenta", icon: "statement" },
+  { href: "/transfer", label: "Transferir", icon: "transfer" },
+  { href: "/receive", label: "Recibir", icon: "receive" },
+  { href: "/bill-payments", label: "Pagar servicios", icon: "bill" },
+];
 
 export function ProductQuickActions({ account }: { account: Account }) {
   const [setFrozen, { isLoading }] = useSetAccountFrozenMutation();
@@ -21,8 +21,9 @@ export function ProductQuickActions({ account }: { account: Account }) {
         <li key={action.href}>
           <Link
             href={action.href}
-            className="flex h-full flex-col justify-between rounded-card border border-border bg-surface p-4 text-sm font-medium text-ink"
+            className="flex h-full flex-col justify-between gap-6 rounded-card border border-border bg-surface p-4 text-sm font-medium text-ink"
           >
+            <Icon name={action.icon} className="size-6 text-primary" />
             {action.label}
           </Link>
         </li>
@@ -30,7 +31,10 @@ export function ProductQuickActions({ account }: { account: Account }) {
       {account.type !== "vault" && (
         <li className="flex flex-col justify-between gap-3 rounded-card border border-border bg-surface p-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-ink">Apagar producto</span>
+            <span className="flex items-center gap-2 text-sm font-medium text-ink">
+              <Icon name="lock" className="size-4 text-primary" />
+              Apagar producto
+            </span>
             <Toggle
               label="Apagar producto"
               checked={account.frozen}

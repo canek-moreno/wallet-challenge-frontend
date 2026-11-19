@@ -3,7 +3,7 @@ import {
   makeListAccounts,
   makeSetAccountFrozen,
 } from "@/features/accounts";
-import { createHttpAuthRepository, makeGetSession, makeLogin } from "@/features/auth";
+import { createHttpAuthRepository, makeGetSession, makeLogin, makeLogout } from "@/features/auth";
 import { createHttpContactRepository, makeCreateContact, makeListContacts } from "@/features/contacts";
 import { createHttpTransactionRepository, makeListTransactions } from "@/features/transactions";
 import { createHttpTransferRepository, makeSendMoney } from "@/features/transfers";
@@ -15,6 +15,7 @@ const contactRepository = createHttpContactRepository();
 export const container = {
   login: makeLogin(authRepository),
   getSession: makeGetSession(authRepository),
+  logout: makeLogout(authRepository),
   sendMoney: makeSendMoney(createHttpTransferRepository()),
   listAccounts: makeListAccounts(accountRepository),
   setAccountFrozen: makeSetAccountFrozen(accountRepository),

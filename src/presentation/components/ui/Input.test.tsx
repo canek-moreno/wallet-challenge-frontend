@@ -4,8 +4,8 @@ import { Input } from "./Input";
 
 describe("Input", () => {
   it("asocia la etiqueta con el campo", () => {
-    render(<Input id="email" label="Correo o documento" />);
-    expect(screen.getByLabelText("Correo o documento")).toBeInTheDocument();
+    render(<Input id="email" label="Correo electrónico o teléfono" />);
+    expect(screen.getByLabelText("Correo electrónico o teléfono")).toBeInTheDocument();
   });
 
   it("muestra el error y lo asocia al campo", () => {

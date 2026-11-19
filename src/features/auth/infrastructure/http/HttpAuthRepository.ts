@@ -31,5 +31,15 @@ export function createHttpAuthRepository(): AuthRepository {
       const parsed = sessionResponseDto.safeParse(await response.json().catch(() => null));
       return parsed.success ? ok(parsed.data) : err<AuthError>({ kind: "Unknown" });
     },
+
+    async logout() {
+      let response: Response;
+      try {
+        response = await httpPost("/auth/logout", undefined);
+      } catch {
+        return err<AuthError>({ kind: "Network" });
+      }
+      return response.ok ? ok(undefined) : err<AuthError>({ kind: "Unknown" });
+    },
   };
 }

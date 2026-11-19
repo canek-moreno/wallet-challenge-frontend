@@ -2,6 +2,7 @@ export { Avatar } from "./Avatar";
 export { Badge } from "./Badge";
 export { Button } from "./Button";
 export { Card } from "./Card";
+export { Icon, type IconName } from "./Icon";
 export { Input } from "./Input";
 export { Modal } from "./Modal";
 export { SegmentedControl } from "./SegmentedControl";

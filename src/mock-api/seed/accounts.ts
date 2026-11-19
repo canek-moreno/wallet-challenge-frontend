@@ -18,6 +18,6 @@ export const seedAccounts: SeedAccount[] = [
 ];
 
 export const seedUsers = [
-  { name: "Mariana López", email: "mariana.lopez@email.com", password: "demo1234" },
-  { name: "Diego Ramírez", email: "diego.ramirez@email.com", password: "demo5678" },
+  { name: "Mariana López", email: "mariana.lopez@email.com", phone: "+525512345678", password: "demo1234" },
+  { name: "Diego Ramírez", email: "diego.ramirez@email.com", phone: "+525598765432", password: "demo5678" },
 ];

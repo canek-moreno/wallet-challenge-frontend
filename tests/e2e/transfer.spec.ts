@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 
 async function login(page: Page) {
   await page.goto("/login");
-  await page.getByLabel("Correo o documento").fill("mariana.lopez@email.com");
+  await page.getByLabel("Correo electrónico o teléfono").fill("mariana.lopez@email.com");
   await page.getByLabel("Contraseña", { exact: true }).fill("demo1234");
   await page.getByRole("button", { name: "Iniciar sesión" }).click();
   await expect(page).toHaveURL("/");
