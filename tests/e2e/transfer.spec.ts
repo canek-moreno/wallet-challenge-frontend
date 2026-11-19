@@ -19,6 +19,9 @@ test("permite elegir un contacto como destino", async ({ page }) => {
 });
 
 test("transfiere a una cuenta propia hasta el comprobante", async ({ page }) => {
+  await page.route("**/api/transfers", (route) =>
+    route.continue({ headers: { ...route.request().headers(), "X-Mock-Scenario": "success" } }),
+  );
   await login(page);
   await page.goto("/transfer");
   await page.getByRole("button", { name: /Cuenta •••• / }).first().click();

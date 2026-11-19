@@ -60,15 +60,17 @@ export function ReviewStep() {
 
   if (failure) {
     return (
-      <TransferErrorState
-        error={failure}
-        availableCents={source.balanceCents}
-        currency={source.currency}
-        onRetry={submit}
-        onAdjust={() => router.push("/transfer/amount")}
-        onCheckMovements={() => router.push("/transactions")}
-        reloadHref={`/products/${source.id}`}
-      />
+      <div className="flex justify-center">
+        <TransferErrorState
+          error={failure}
+          availableCents={source.balanceCents}
+          currency={source.currency}
+          onRetry={submit}
+          onAdjust={() => router.push("/transfer/amount")}
+          onCheckMovements={() => router.push("/transactions")}
+          reloadHref={`/products/${source.id}`}
+        />
+      </div>
     );
   }
 

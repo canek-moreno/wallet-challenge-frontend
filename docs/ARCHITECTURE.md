@@ -295,15 +295,17 @@ wallet-challenge-frontend/
     └── http.ts                               # Helpers de respuesta y errores
 ```
 
-**Escenarios de error controlados.** Permiten probar las vistas de error de la sección `presentation/components/status/` sin depender de un backend real:
+**Escenarios de error simulados.** Cada confirmación elige al azar uno de los cinco resultados, y cada uno se muestra con la vista de `presentation/components/status/`:
 
-| Disparador | Respuesta simulada | Vista esperada |
+| Escenario | Respuesta simulada | Vista esperada |
 | --- | --- | --- |
-| Monto igual o mayor a 100,000 | 422 saldo insuficiente | `InsufficientFundsView` |
-| Monto que termina en `.99` | Respuesta tras 30 s sin resolver (timeout) | `TimeoutView` |
-| Monto que termina en `.50` | 500 con código de referencia | `GenericErrorView` |
-| Header `X-Mock-Scenario: network` | 503 con código `NETWORK` | `NetworkErrorView` |
-| Cualquier otro caso | 200 con datos del seed | Flujo normal |
+| Éxito | 200 con id de transacción y movimiento agregado | `SuccessView` (comprobante) |
+| Error de red | 503 con código `NETWORK` | `NetworkErrorView` (reintentar) |
+| Fondos insuficientes | 422 con `INSUFFICIENT_FUNDS` | `InsufficientFundsView` |
+| Timeout | Respuesta tras 30 s; el cliente aborta a los 15 s | `TimeoutView` |
+| Error desconocido | 500 con código de referencia | `GenericErrorView` |
+
+Un monto igual o mayor a 100,000 siempre responde fondos insuficientes. Para fijar un escenario en pruebas, envía el header `X-Mock-Scenario` con uno de los cinco nombres (`success`, `network`, `insufficient`, `timeout`, `generic`).
 
 **Reglas de la API simulada:**
 
