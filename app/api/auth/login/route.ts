@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   if (disabled) return disabled;
 
   const parsed = loginDto.safeParse(await request.json().catch(() => null));
-  if (!parsed.success) return json({ code: "INVALID_CREDENTIALS" }, 400);
+  if (!parsed.success) return json({ code: "VALIDATION_ERROR" }, 400);
 
   const session = login(parsed.data.email, parsed.data.password);
   if (!session) return json({ code: "INVALID_CREDENTIALS" }, 401);

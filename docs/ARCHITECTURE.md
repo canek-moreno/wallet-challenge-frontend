@@ -251,6 +251,8 @@ Se usa **App Router** de Next.js (directorio `app/`).
 
 Mientras no exista el backend real, la aplicación incluye su propia API simulada con **Route Handlers** de Next.js. Los adaptadores HTTP de `infrastructure` llaman a estas rutas con el mismo contrato que usarían contra el backend final.
 
+El contrato HTTP es la fuente de verdad y vive en `contracts/openapi.yaml`. Los endpoints marcados con `x-status: planned` aún no están implementados en el mock.
+
 ```text
 wallet-challenge-frontend/
 ├── app/api/                                  # Route Handlers: contrato HTTP simulado
